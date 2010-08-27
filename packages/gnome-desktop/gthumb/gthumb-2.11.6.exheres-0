@@ -1,0 +1,39 @@
+# Copyright 2010 Mathias Ruediger <ruediger@blueboot.org>
+# Distributed under the terms of the GNU General Public License v2
+
+require gnome-2
+
+SUMMARY="Image Viewer"
+HOMEPAGE="http://live.gnome.org/gthumb"
+
+LICENCES="GPL-2"
+PLATFORMS="~amd64 ~x86"
+MYOPTIONS="gstreamer exiv2 jpeg tiff clutter openraw"
+SLOT="0"
+
+DEPENDENCIES="
+	build:
+		dev-util/intltool[>=0.35.0]
+		dev-util/pkg-config[>=0.20]
+	build+run:
+		x11-libs/gtk+:2[>=2.16.0]
+		dev-libs/glib:2[>=2.16.0]
+		gnome-platform/GConf:2[>=2.6.0]
+		gstreamer? ( media-libs/gstreamer[>=0.10] )
+		exiv2? ( graphics/exiv2[>=0.18] )
+		jpeg? ( media-libs/jpeg[>=7] )
+		tiff? ( media-libs/tiff[>=3.9.2] )
+		clutter? ( base/clutter[>=1.0.0] base/clutter-gtk[>=0.10.0] )
+		openraw? ( media-libs/libopenraw[>=0.0.8] )
+"
+
+pkg_postinst() {
+	gsettings_exlib_compile_gsettings_schemas
+	gnome-2_pkg_postinst
+}
+
+pkg_postrm() {
+	gsettings_exlib_compile_gsettings_schemas
+	gnome-2_pkg_postrm
+}
+
