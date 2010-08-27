@@ -1,0 +1,44 @@
+# Copyright 2010 Mathias Ruediger <ruediger@blueboot.org>
+# Distributed under the terms of the GNU General Public License v2
+
+require gnome-2
+
+SCM_REPOSITORY="git://git.gnome.org/gthumb"
+require scm-git
+
+SUMMARY="Image Viewer"
+HOMEPAGE="http://live.gnome.org/gthumb"
+DOWNLOADS=""
+
+LICENCES="GPL-2"
+PLATFORMS="~amd64 ~x86"
+MYOPTIONS="gstreamer exiv2 jpeg tiff clutter openraw"
+SLOT="scm"
+
+DEPENDENCIES="
+	build:
+		dev-util/intltool[>=0.35.0]
+		dev-util/pkg-config[>=0.20]
+		gnome-desktop/gnome-doc-utils
+		gnome-base/gnome-common
+	build+run:
+		x11-libs/gtk+:2[>=2.18.0]
+		dev-libs/glib:2[>=2.16.0]
+		gnome-platform/GConf:2[>=2.6.0]
+		gstreamer? ( media-libs/gstreamer[>=0.10] )
+		exiv2? ( graphics/exiv2[>=0.18] )
+		jpeg? ( media-libs/jpeg[>=7] )
+		tiff? ( media-libs/tiff[>=3.9.2] )
+		clutter? ( base/clutter[>=1.0.0] base/clutter-gtk[>=0.10.0] )
+		openraw? ( media-libs/libopenraw[>=0.0.8] )
+"
+
+AT_M4DIR=( "m4" )
+
+DEFAULT_SRC_CONFIGURE_PARAMS=( '--with-distributor-name=exherbo' )
+
+src_prepare() {
+	USE_GNOME2_MACROS=1
+	USE_COMMON_DOC_BUILD=yes
+	edo gnome-autogen.sh
+}
