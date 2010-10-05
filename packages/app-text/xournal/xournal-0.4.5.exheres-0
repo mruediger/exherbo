@@ -16,7 +16,7 @@ RESTRICT="test"
 
 DEPENDENCIES="
 	build+run:
-		x11-libs/gtk+:2
+		x11-libs/gtk+:2[>=2.10]
 		gnome-platform/libgnomecanvas[>=2.4]
-		app-text/poppler[glib][>=0.5.4]
+		app-text/poppler[gdk][>=0.5.4]
 "
